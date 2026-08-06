@@ -427,3 +427,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Warehouse app
+backend/Warehouse.Api/warehouse.db
+frontend/dist/
