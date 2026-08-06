@@ -13,8 +13,25 @@ public class WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ProductCategory>().HasKey(x => new { x.ProductId, x.CategoryId });
-        modelBuilder.Entity<ClientCategory>().HasKey(x => new { x.ClientId, x.CategoryId });
-        modelBuilder.Entity<ClientProductStock>().HasKey(x => new { x.ClientId, x.ProductId });
+        modelBuilder.Entity<ProductCategory>(entity =>
+        {
+            entity.HasKey(x => new { x.ProductId, x.CategoryId });
+            entity.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ClientCategory>(entity =>
+        {
+            entity.HasKey(x => new { x.ClientId, x.CategoryId });
+            entity.HasOne(x => x.Client).WithMany().HasForeignKey(x => x.ClientId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ClientProductStock>(entity =>
+        {
+            entity.HasKey(x => new { x.ClientId, x.ProductId });
+            entity.HasOne(x => x.Client).WithMany().HasForeignKey(x => x.ClientId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

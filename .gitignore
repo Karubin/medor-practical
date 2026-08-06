@@ -431,3 +431,6 @@ FodyWeavers.xsd
 # Warehouse app
 backend/Warehouse.Api/warehouse.db
 frontend/dist/
+
+.claude/
+docs/
