@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import FilterPanel from '@/components/FilterPanel.vue'
+import WarehouseGrid from '@/components/WarehouseGrid.vue'
 import { useWarehouseStore } from '@/stores/warehouseStore'
 
 const store = useWarehouseStore()
@@ -17,7 +18,7 @@ onMounted(async () => {
     <FilterPanel />
     <v-main>
       <v-container>
-        <!-- grid added in Task 10 -->
+        <WarehouseGrid />
       </v-container>
     </v-main>
   </v-app>
