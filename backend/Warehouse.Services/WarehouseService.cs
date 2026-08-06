@@ -65,4 +65,22 @@ public class WarehouseService(WarehouseDbContext db) : IWarehouseService
             select cat.Name)
             .ToListAsync(ct);
     }
+
+    public async Task<WarehouseRowDto?> UpdateQuantityAsync(int clientId, int productId, int quantity, CancellationToken ct = default)
+    {
+        var stock = await db.ClientProductStocks
+            .FirstOrDefaultAsync(s => s.ClientId == clientId && s.ProductId == productId, ct);
+
+        if (stock is null)
+            return null;
+
+        stock.Quantity = quantity;
+        await db.SaveChangesAsync(ct);
+
+        var client = await db.Clients.FirstAsync(c => c.Id == clientId, ct);
+        var product = await db.Products.FirstAsync(p => p.Id == productId, ct);
+        var categories = await GetSharedCategoryNamesAsync(clientId, productId, ct);
+
+        return new WarehouseRowDto(clientId, client.Name, productId, product.Name, categories, stock.Quantity);
+    }
 }

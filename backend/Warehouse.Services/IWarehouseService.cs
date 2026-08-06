@@ -7,4 +7,6 @@ public interface IWarehouseService
     Task<WarehousePageDto> GetRowsAsync(WarehouseQuery query, CancellationToken ct = default);
 
     Task<List<string>> GetSharedCategoryNamesAsync(int clientId, int productId, CancellationToken ct = default);
+
+    Task<WarehouseRowDto?> UpdateQuantityAsync(int clientId, int productId, int quantity, CancellationToken ct = default);
 }
