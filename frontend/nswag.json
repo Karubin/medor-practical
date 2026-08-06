@@ -1,0 +1,19 @@
+{
+  "runtime": "Net80",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "http://localhost:5080/swagger/v1/swagger.json",
+      "output": null
+    }
+  },
+  "codeGenerators": {
+    "openApiToTypeScriptClient": {
+      "className": "WarehouseApiClient",
+      "template": "Fetch",
+      "generateClientClasses": true,
+      "generateDtoTypes": true,
+      "typeScriptVersion": 5.0,
+      "output": "src/api/generated/api-client.ts"
+    }
+  }
+}
